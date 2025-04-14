@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<head>
+    <meta name="_csrf" th:content="${_csrf?.token}">
+    <meta name="_csrf_header" th:content="${_csrf?.headerName}">
+    <title>itemDtl</title>
+</head>
+<th:block layout:fragment="script">
+    <script th:inline="javascript">
+        $(document).ready(function() {
+            calculateTotalPrice();
+            $("#count").change(function () {
+                calculateTotalPrice();
+            });
+        });
+
+        function calculateTotalPrice() {
+            var count = $("#count").val();
+            var price = $("#price").val();
+            var totalPrice = price * count;
+            console.log(totalPrice);
+            $("#totalPrice").html(totalPrice + '원');
+        }
+
+    </script>
+</th:block>
+
+
+
+<div layout:fragment="content" style="margin-left:25%; margin-right:25%" th:object="${cocktail}">
+
+    <input type="hidden" id="id" th:value="${cocktail.getMenuId()}">
+
+    <div class="d-flex">
+
+
+
+            <div class="repImgDiv">
+                <img th:src="${cocktail.cImgDtoList[0].cImgUrl}"
+                     class="rounded repImg" th:alt="${cocktail.cName}">
+            </div>
+
+            <div class="title">
+                <h2 th:text="${cocktail.cName}"></h2>
+            </div>
+
+
+
+            <div class="jumbotron jumbotron-fluid mgt-30">
+            <div class="container">
+                <h4 class="display-5">레시피 상세 설명</h4>
+                <hr class="my-4">
+                <p class="lead" th:text="${cocktail.cDetail}"></p>
+            </div>
+        </div>
+
+
+        <div class="block" th:object="${mixItemList}">
+            사용한 베이스 술 <br>
+            <div class="form-group" th:each="itemList, status: ${mixItemList}">
+                <li>
+                    <label class="custom-file-label" th:text="${itemList.getItemId().itemNm}"></label>
+                </li>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+</html>

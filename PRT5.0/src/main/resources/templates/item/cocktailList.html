@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/projectLayout}">
+
+
+
+
+
+<div layout:fragment="content">
+
+
+
+    <section class="hero-wrap hero-wrap-2" style="background-image: url('/images/bg2.jpg');" data-stellar-background-ratio="0.5">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row no-gutters slider-text align-items-end justify-content-center">
+                <div class="col-md-9 ftco-animate mb-5 text-center">
+                    <p class="breadcrumbs mb-0"><span class="mr-2"><a href="index.html">Home <i class="fa fa-chevron-right"></i></a></span> <span>Base <i class="fa fa-chevron-right"></i></span></p>
+                    <h2 class="mb-0 bread">Base</h2>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="ftco-section bg-light">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-12">
+
+
+                    <div class="row justify-content-center pb-5">
+                        <div class="col-md-7 heading-section text-center ftco-animate">
+                            <span class="subheading">Our Delightful offerings</span>
+                            <h2>Cocktail List</h2>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <th:block th:each="cocktail, status: ${cocktailList}">
+
+
+                            <div class="col-md-4 d-flex">
+                                <div class="product ftco-animate">
+                                    <a th:href="'/item/cocktail/'+${cocktail.getMenuId()}" class="text-dark">
+
+<!--                                        <img th:src="${cocktail.[0].getImgUrl()}" class="img d-flex align-items-center justify-content-center" th:alt="${item.itemNm}" height="400" width="100%">-->
+                                        <div class="text text-center">
+                                            <h2>[[${cocktail.cName}]]</h2>
+                                            <span class="price">₩[[${cocktail.cCapacity}]]</span>
+                                        </div>
+
+
+
+                                    </a>
+                                </div>
+                            </div>
+
+
+                        </th:block>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+
+
+
+
+
+</div>
+
+
+
+</html>
