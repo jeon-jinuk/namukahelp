@@ -1,0 +1,177 @@
+.header {
+    background-image: none;
+    background-color:var(--color-main);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top;
+    position: relative;
+    height: 5rem;
+    top: -5rem;
+}
+
+
+body {
+    /* display: flex; */
+    background-color: var(--color-lighter);
+}
+nav {
+	top:5rem;
+	z-index:-5;
+    position: absolute;
+  	height: calc(100% - 5rem);
+    background-image: url(../images/submain.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 30%;
+    background-position: 50% 0;
+    transition: background-position 5000ms ease;
+    animation: movebg 30s linear infinite;
+}
+
+@keyframes movebg {
+    0% {
+        background-position: 100% 0;
+    }
+    50% {
+        background-position: 0% 0;
+    }
+    100% {
+        background-position: 100% 0;
+    }
+}
+
+.logo {
+    cursor: pointer;
+    background-image: url(../images/small_logo.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 10em;
+    height: 50%;
+    margin: auto;
+    background-position: 100% 100%;
+}
+
+.joinform {
+    position: relative;
+    height: 60vh;
+    /* text-align: center; */
+    /* width: 70%; */
+    display: flex;
+    text-align: center;
+    align-items: center;
+}
+
+form {
+    width: 450px;
+    /* height: 20em; */
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    /* background-color: white; */
+    justify-content: center;
+}
+
+.joinform h3 {
+    cursor: pointer;
+    font-size: 2.5em;
+    font-family: "logo";
+}
+
+.joinform p {
+    font-size: 1em;
+    color: var(--color-darker);
+    margin-bottom: 2em;
+}
+
+.input-boxes {
+    background-color: white;
+}
+.joinform .input-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.joinform input {
+    width: 100%;
+    height: 3em;
+    background-color: white;
+    padding: 0;
+    padding-left: 20px;
+    box-sizing: border-box;
+    border-bottom: solid 1px var(--color-lighter);
+}
+
+.joinform input[type="submit"] {
+    margin-top: 2em;
+    padding: 0;
+    font-size: var(--highlight-font);
+    color: var(--color-lighter);
+    background-color: var(--color-second);
+    cursor: pointer;
+    transition: background-color 300ms ease;
+    border: none;
+}
+
+/* .joinform input[type="submit"]:hover {
+    color: var(--color-lighter);
+    background-color: var(--color-second);
+} */
+
+.joinform input[type="button"] {
+    /* border: solid 2px var(--color-darker); */
+    background-color: var(--color-second);
+    color: white;
+    /* width: 50%; */
+    padding: 0;
+    cursor: pointer;
+}
+
+label {
+    width: 3em;
+    height: 3em;
+    line-height: 3em;
+    border-bottom: solid 1px var(--color-lighter);
+}
+
+select {
+    width: 300px;
+    margin-right: 0.8em;
+}
+
+.role{
+	width : 100%;
+	height: 3rem;
+	margin: 0;
+	border:none;
+	border-radius:0;
+}
+
+
+#btnJoin{
+	width:100%;
+	height: 3rem;
+	background-color:var(--color-second);
+	color: var(--color-lighter)
+}
+button[type="reset"]{
+	width:100%;
+	height: 3rem;
+	background-color:var(--color-main);
+	color: var(--color-lighter)
+}
+
+
+#btnIdCheck{
+	width: 50%;
+	background-color: var(--color-second);
+	color:var(--color-lighter);
+	height: 3rem;
+}
+@media all and (max-width: 1000px) {
+    nav {
+        width: 100%;
+    }
+    .joinform p {
+        color: white;
+    }
+}

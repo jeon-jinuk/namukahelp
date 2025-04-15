@@ -1,0 +1,104 @@
+.header {
+    background-image: none;
+    background-color:var(--color-main);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top;
+    position: relative;
+    height: 5rem;
+    top: -5rem;
+}
+
+body {
+    /* display: flex; */
+    background-color: var(--color-lighter);
+}
+nav {
+	top:5rem;
+    position: absolute;
+    height: calc(100% - 5rem);
+    background-image: url(../images/join.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 30%;
+    background-position: 50% 0;
+    transition: background-position 5000ms ease;
+    animation: movebg 30s linear infinite;
+    z-index:-5
+}
+
+.nav{
+	background-color:var(--color-main)
+}
+@keyframes movebg {
+    0% {
+        background-position: 100% 0;
+    }
+    50% {
+        background-position: 0% 0;
+    }
+    100% {
+        background-position: 100% 0;
+    }
+}
+
+.logo {
+    cursor: pointer;
+    background-image: url(../images/small_logo.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 10em;
+    height: 50%;
+    margin: auto;
+    background-position: 100% 100%;
+}
+
+.loginform {
+    position: relative;
+    height: 60vh;
+    /* text-align: center; */
+    /* width: 70%; */
+    display: flex;
+    text-align: center;
+    align-items: center;
+}
+
+form {
+    width: 350px;
+    height: 20em;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    /* background-color: white; */
+    justify-content: center;
+}
+
+.loginform h3 {
+    cursor: pointer;
+    font-size: 2.5em;
+    font-family: "logo";
+}
+
+.loginform p {
+    font-size: 1em;
+    color: var(--color-darker);
+    margin-bottom: 2em;
+}
+.loginform input {
+    height: 3em;
+    background-color: white;
+    padding-left: 2em;
+}
+
+.loginform input[type="text"] {
+    border-bottom: solid 1px var(--color-lighter);
+}
+
+.loginform input[type="submit"] {
+    margin-top: 2em;
+    padding: 0;
+    font-size: var(--highlight-font);
+    color: var(--color-lighter);
+    background-color: var(--color-second);
+    cursor: pointer;
+}

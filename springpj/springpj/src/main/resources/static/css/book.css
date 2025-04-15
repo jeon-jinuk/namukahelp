@@ -1,0 +1,386 @@
+.header {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	z-index: -1;
+	top: 0;
+	height: 35em;
+	background-image: url("../images/deco2.svg"),
+		linear-gradient(180deg, rgba(0, 0, 0, 0.3) 100%,
+		rgba(255, 255, 255, 0) 0%), url("../images/main.jpg");
+	background-repeat: repeat-x;
+	background-position: bottom, 0, top;
+	background-size: contain, cover, cover;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	justify-content: center;
+	animation: movebg 30s linear infinite;
+}
+
+@keyframes movebg {
+    0% {
+        background-position: bottom, 0, 0 20%;
+    }
+    50% {
+        background-position: bottom, 0, 0 0;
+    }
+    100% {
+        background-position: bottom, 0, 0 20%;
+    }
+}
+#map {
+	margin: auto;
+	margin-top: 35rem;
+	margin-bottom: 3rem;
+	border-radius: 15px;
+}
+
+#selectSeatForm {
+	margin: auto;
+	margin-top: 35rem;
+	margin-bottom: 3rem;
+	z-index: 5;
+}
+
+h2 {
+	font-family: var(--highlight-font);
+	margin-bottom: 2rem;
+}
+
+input[type="checkbox"] {
+	display: none;
+}
+
+form input:disabled+label {
+	cursor: default;
+	background-color: var(--color-lighter);
+}
+
+.seat-form input:checked+label {
+	background-color: var(--color-red);
+}
+
+.seat-form label {
+	cursor: pointer;
+	display: inline-block;
+	width: 24px;
+	height: 24px;
+	border: solid 1px var(--color-lighter);
+	border-radius: 4px;
+}
+
+.aleady+label {
+	background-color: var(--color-main) !important;
+	cursor: default;
+}
+
+#selectSeat {
+	width: 600px;
+}
+
+.seat-form {
+	text-align: center;
+}
+
+.select-other>button {
+	font-size: 1.2rem;
+	background-color: var(--color-main);
+	color: var(--color-lighter);
+	margin-bottom: 1em;
+}
+
+.select-other {
+	text-align: center;
+	display: flex;
+	flex-direction: row;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.book-time {
+	margin: 2rem 0;
+}
+
+.book-time input {
+	padding: 5px 10px;
+	background-color: var(--color-lighter)
+}
+
+#selectSeat {
+	text-align: center;
+	margin-bottom: 2rem;
+}
+
+#btnNextBook {
+	background-color: var(--color-main);
+	color: var(--color-lighter);
+	padding: 0.5rem 2rem;
+}
+
+/* 
+#selectMenuForm{
+	margin: auto;
+    margin-top : 35rem;
+	margin-bottom:3rem;
+}
+.menuForm{
+		display:flex;
+		
+}
+.orderForm{
+	width: 100%;
+	background-color:var(--color-lighter);
+	margin: 0 3rem;
+	padding: 3rem;
+}
+#cafeOrderList{
+	min-height: 300px;
+}
+
+#menuName{
+	font-family : var(--highlight-font);
+	font-size : 1.2rem;
+}
+.selectMenu{
+	margin:0;
+}
+#cafeOrder{
+	display:flex;
+	justify-content: space-between;
+}
+
+#cafeOrder input{
+	width : 25%;
+}
+
+.update-menu-btn a{
+	margin-right:0.5rem;
+}
+
+h3{
+	font-family:var(--highlight-font);
+	border-top : solid 1px var(--color-darker);
+	padding-top : 2rem;
+	margin-bottom : 2rem;
+}
+
+.use-mile{
+	display:flex;
+}
+.use-mile p{
+	width : 100%;
+	text-align: center;
+}
+.use-mile p input{
+	width: 100%;
+	 box-sizing: border-box;
+}
+#useMileage{
+	background-color : white;
+}
+
+.totalForm{
+	padding : 1rem 0rem;
+}
+
+#totalPrice{
+	font-family:var(--highlight-font);
+	font-size: 1.5rem;
+} */
+
+/*=================메뉴 선택 페이지==================  */
+#container{
+	margin-top: 35rem;	
+}
+#selectMenuForm {
+	position:relative;
+	display:flex;
+	margin: auto;
+	margin-bottom: 3rem;
+	height:auto;
+	align-items: flex-start;
+	
+}
+
+.menu-form {
+	display: flex;
+	width: calc(100% - 400px);
+}
+
+h5 {
+	font-family: var(--highlight-font);
+}
+
+.order-form {
+	position: sticky;
+	background-color: var(--color-lighter);
+	top:3rem;
+	width: 400px;
+	padding: 2rem;
+	left: 65%;
+	z-index: 1;
+	box-shadow: rgb(99 99 99/ 20%) 0px 2px 8px 0px;
+}
+
+.order-form>div {
+	padding-bottom: 2rem;
+}
+
+#cafeOrderList {
+	border-bottom: dotted 2px var(--color-main);
+	margin-bottom: 2rem;
+	min-height: 200px;
+}
+
+.useable-mile-form div {
+	display: flex;
+	justify-content: space-between;
+}
+
+.useable-mile-form p {
+	font-family: var(--highlight-font);
+}
+
+#mymileage {
+	padding-right: 1rem;
+}
+
+.useable-mile-form div input {
+	text-align: right;
+	color: var(--color-darker);
+}
+
+.get-mile {
+	display: flex;
+	justify-content: space-between;
+}
+
+.get-mile>div {
+	width: 100%;
+}
+
+.get-mile-user {
+	padding-right: 1.5rem;
+}
+
+.get-mile>div>p {
+	position: relative;
+}
+
+.get-mile>div>p:first-child>span,
+.get-mile>div>p:first-child>input  {
+	font-family: var(--highlight-font);
+	font-size: 1rem;
+	color: var(--color-main);
+}
+
+.get-mile>div>p>span,
+.get-mile>div>p>input {
+	color: var(--color-darker);
+	font-size: 0.9rem;
+}
+
+.mile {
+	position: absolute;
+	right: 0;
+	text-align : right;
+}
+
+.total-form {
+	display: flex;
+	align-items: center;
+}
+
+.total-form h5 {
+	margin: 0;
+	width: 100%;
+}
+
+#totalPrice {
+	width: 100%;
+	text-align: right;
+	font-size: 2rem;
+	padding-right: 0.5rem;
+}
+
+h3 {
+	margin: 0;
+}
+
+.charge-select {
+	display: flex;
+	justify-content: space-between;
+}
+
+#submitBtn {
+	width: 100%;
+	background-color: var(--color-main);
+	/* font-size: 2rem; */
+	height: 3rem;
+	color: var(--color-lighter);
+}
+
+#cafeOrder {
+	display: flex;
+}
+
+#cafeOrder input {
+	width: 100%;
+	text-align: center;
+}
+
+#menuName {
+	font-family: var(--highlight-font);
+}
+
+.update-menu-btn {
+	display: flex;
+}
+
+.update-menu-btn i {
+	padding: 0 5px;
+}
+.card{
+	margin : 0.5rem;
+}
+@media all and (max-width: 1200px) {
+	.order-form {
+		position: initial;
+		background-color: var(--color-lighter);
+		width: 100%;
+		padding: 2rem;
+		left: 65%;
+		z-index: 1;
+		box-shadow: rgb(99 99 99/ 20%) 0px 2px 8px 0px;
+	}
+	#selectMenuForm {
+		display:block;
+	}
+	.menu-form {
+		width: 100%;
+		margin-bottom:3rem;
+}
+}
+
+/* ============================================================== */
+.confirm-form {
+	margin: auto;
+	margin-top: 35rem;
+	margin-bottom: 3rem;
+	z-index: 5;
+}
+
+.table span {
+	margin-right: 1.5rem;
+}
+
+#confirmBtn {
+	margin-top: 3rem;
+	width: 100%;
+	font-family: var(--highlight-font);
+	background-color: var(--color-main);
+	color: var(--color-lighter);
+	height: 3rem;
+}

@@ -1,0 +1,45 @@
+input{
+	width : 100%;
+}
+
+input[type="checkbox"]+label{
+	width : 24px;
+	height :24px;
+	background-color:val(--color-highlight);
+	border : solid 1px var(--color-darker);
+	border-radius:4px;
+}
+input[type="checkbox"]{
+	display:none;
+}
+input[type="checkbox"]:checked+ label{
+	background-color : var(--color-red)
+}
+
+#branchForm{
+	text-align:right;
+}
+
+.left{
+	width:70%;
+	padding:2em;
+	text-align:left;
+}
+
+.right{
+	width:40%;
+	padding:2em;
+	text-align:left;
+}
+
+.branch-form{
+	display:flex;
+	justify-content: space-between;
+}
+
+h5{
+	font-family:var(--highlight-font);
+}
+.submit{
+	margin-right: 2em;
+}

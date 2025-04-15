@@ -1,0 +1,53 @@
+.header {
+    background-image: linear-gradient(
+            180deg,
+            rgba(0, 0, 0, 0.3) 100%,
+            rgba(255, 255, 255, 0) 0%
+        ),
+        url(../images/main.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top;
+    position: relative;
+    height: 5rem;
+    top: -5rem;
+}
+
+form {
+    position: relative;
+}
+.container h1 {
+    font-family: var(--highlight-font);
+    margin-bottom: 2rem;
+}
+
+.input-header {
+    width: 100%;
+    border-radius: 20px;
+    margin-bottom: 2rem;
+}
+.input-header tr {
+    border-bottom: solid 1px var(--color-lighter);
+}
+
+.input-header th,
+td {
+    padding: 0.5rem 0;
+}
+
+.input-header input {
+    width: 100%;
+}
+
+.input-header input:last-child {
+    width: 50%;
+}
+
+#btnInsert {
+    position: absolute;
+    right: 0;
+    width: 10rem;
+    background-color: var(--color-lighter);
+    height: 3rem;
+    margin-top: 1rem;
+}
