@@ -1,0 +1,78 @@
+<!-- src/main/resources/templates/circle/create.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>써클 생성</title>
+    <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+<div class="container">
+    <h2>써클 생성</h2>
+
+    <form id="createForm">
+        <div class="form-group">
+            <label for="name">써클 이름</label>
+            <input type="text" id="name" name="name" required />
+        </div>
+
+        <div class="form-group">
+            <label for="description">설명</label>
+            <input type="text" id="description" name="description" required />
+        </div>
+
+        <div class="form-group">
+            <label for="tags">태그 (쉼표로 구분)</label>
+            <input type="text" id="tags" name="tags" required />
+        </div>
+
+        <div class="form-group">
+            <label for="isPublic">공개 여부</label>
+            <select id="isPublic" name="isPublic" required>
+                <option value="true" selected>공개</option>
+                <option value="false">비공개</option>
+            </select>
+        </div>
+
+        <button type="submit">써클 생성</button>
+    </form>
+
+    <div id="result" style="margin-top: 15px; text-align: center;"></div>
+</div>
+
+<script>
+    document.getElementById("createForm").addEventListener("submit", async function(event) {
+        event.preventDefault();
+
+        const form = event.target;
+        const data = {
+            name: form.name.value,
+            description: form.description.value,
+            tags: form.tags.value,
+            isPublic: form.isPublic.value === "true"
+        };
+
+        const response = await fetch("/api/circles", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        });
+
+        const result = document.getElementById("result");
+        if (response.ok) {
+            result.style.color = "green";
+            result.textContent = "써클이 성공적으로 생성되었습니다.";
+            form.reset();
+        } else {
+            result.style.color = "red";
+            const msg = await response.text();
+            result.textContent = "오류: " + msg;
+        }
+    });
+</script>
+
+</body>
+</html>

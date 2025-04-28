@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>공지사항 상세</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="container" style="max-width: 600px; margin: 0 auto; padding: 20px;">
+  <h2 th:text="${notice.title}">공지사항 제목</h2>
+  <p style="font-size: 12px; color: gray;" th:text="${#temporals.format(notice.createdAt, 'yyyy-MM-dd HH:mm')}">
+    작성일시
+  </p>
+
+  <div style="margin-top: 20px; font-size: 16px; color: #333;" th:text="${notice.content}">
+    공지사항 본문
+  </div>
+
+  <div style="margin-top: 20px; display: flex; gap: 10px;">
+    <a th:href="@{/circle/{circleId}/noticeList(circleId=${circleId})}">
+      <button type="button" class="full-btn">목록으로 돌아가기</button>
+    </a>
+
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>공지사항 수정</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="container" style="max-width: 600px; margin: 0 auto; padding: 20px;">
+  <h2>공지사항 수정</h2>
+
+  <form th:action="@{/circle/{circleId}/notices/{noticeId}(circleId=${circleId}, noticeId=${notice.id})}" method="post">
+    <div style="margin-bottom: 20px;">
+      <label for="title">제목</label>
+      <input type="text" id="title" name="title" th:value="${notice.title}" required>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+      <label for="content">내용</label>
+      <textarea id="content" name="content" required th:text="${notice.content}"></textarea>
+    </div>
+
+    <button type="submit" class="full-btn">수정하기</button>
+  </form>
+
+</div>
+
+</body>
+</html>
