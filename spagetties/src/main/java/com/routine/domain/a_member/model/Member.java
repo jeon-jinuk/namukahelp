@@ -2,6 +2,10 @@ package com.routine.domain.a_member.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import com.routine.domain.b_circle.model.CircleMember;
+
+import java.util.List;
+import java.util.ArrayList;
 
 @Entity
 @Getter
@@ -18,27 +22,33 @@ public class Member {
     @Column(nullable = false, unique = true)
     private String loginId;
 
+    @Column(nullable = false, unique = true)
+    private String email;
+
     @Column(nullable = false)
     private String password;
 
     @Column(nullable = false, unique = true)
     private String nickname;
 
+    @Column(nullable = false)
+    private String name;
+
+    @Column
+    private String phone;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
 
-    @OneToOne(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "user_info_id")
     private UserInfo userInfo;
 
-    private int point;
 
-    public void addPoint(int amount) {
-        this.point += amount;
-    }
+    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @Builder.Default
+    private List<CircleMember> circleMembers = new ArrayList<>();
 
-    public void usePoints(int amount) {
-        this.point -= amount;
-    }
 }
 

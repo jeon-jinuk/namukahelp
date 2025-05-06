@@ -3,8 +3,10 @@ package com.routine.domain.b_circle.model;
 import com.routine.domain.a_member.model.Member;
 import jakarta.persistence.*;
 import lombok.*;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.time.LocalDateTime;
+import org.springframework.data.annotation.CreatedDate;
+
 
 @Entity
 @Getter
@@ -20,6 +22,7 @@ public class CircleMember {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "circle_id")
+    @JsonIgnore
     private Circle circle;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -27,22 +30,28 @@ public class CircleMember {
     private Member member;
 
     @Enumerated(EnumType.STRING)
-    private Role role; // 내부 enum
+    private Role role;
 
-    private LocalDateTime joinedAt;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Status status;
 
-    @PrePersist
-    public void setJoinedAtIfNull() {
-        if (this.joinedAt == null) {
-            this.joinedAt = LocalDateTime.now();
-        }
-    }
-
+    private double commitRate;
     private int skipCount;
-
+    private int points;
 
     public enum Role {
         LEADER,
-        MEMBER
+        MEMBER,
+        ADMIN
     }
+
+    public enum Status {
+        PENDING,
+        APPROVED,
+        REJECTED
+    }
+    @CreatedDate
+    @Column(updatable = false)
+    private LocalDateTime createdAt;
 }

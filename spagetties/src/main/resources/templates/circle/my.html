@@ -1,0 +1,14 @@
+<table>
+    <thead>
+    <tr>
+        <th>이름</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="circle : ${myCircles}">
+        <td>
+            <a th:href="@{/circle/{id}(id=${circle.id})}" th:text="${circle.name}">써클 이름</a>
+        </td>
+    </tr>
+    </tbody>
+</table>

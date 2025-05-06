@@ -1,12 +1,10 @@
 package com.routine.domain.b_circle.model;
 
-
-import com.routine.domain.e_board.model.Category;
-import com.routine.domain.e_board.model.DetailCategory;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -21,25 +19,26 @@ public class Circle {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, unique = true)
     private String name;
 
     private String description;
 
     private String tags;
 
-    @Enumerated(EnumType.STRING)
-    private Category category; //
+    private boolean isPublic = true;
 
-    @Enumerated(EnumType.STRING)
-    private DetailCategory detailCategory;
+    private double averageCommitRate;
 
     private LocalDateTime createdAt;
 
-    @OneToMany(mappedBy = "circle", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CircleMember> members;
 
-    private boolean isOpened;
-    private int maxMemberCount;
+    private Long creatorId;
+
+    @OneToMany(mappedBy = "circle", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
+    private List<CircleMember> members = new ArrayList<>();
+
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();

@@ -1,0 +1,91 @@
+body {
+    background-color: #f7f8fa;
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.login-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login-area {
+    width: 100%;
+    max-width: 360px;
+    padding: 30px;
+    border-radius: 6px;
+    background-color: transparent;
+    box-shadow: none;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.login-title {
+    font-size: 22px;
+    margin-bottom: 30px;
+    font-weight: 600;
+    color: #333;
+}
+
+.input-field {
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background-color: #ffffff;
+    box-sizing: border-box;
+    margin-bottom: 16px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.input-field:focus {
+    border-color: #66afe9;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(102, 175, 233, 0.15);
+}
+
+.btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 15px;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.2s ease;
+}
+
+.primary-btn,
+.secondary-btn {
+    background-color: #1f78c1;
+    color: white;
+}
+
+.primary-btn:hover,
+.secondary-btn:hover {
+    background-color: #155d8b;
+}
+
+
+.alert-box {
+    padding: 10px;
+    font-size: 14px;
+    text-align: center;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.alert-box.error {
+    background-color: #ffe0e0;
+    color: #d32f2f;
+}
+
+.alert-box.success {
+    background-color: #e0ffe0;
+    color: #2e7d32;
+}

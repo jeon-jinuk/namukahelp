@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>회원 탈퇴</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="container" style="max-width: 500px; margin: 40px auto; text-align: center;">
+  <h2>정말로 회원 탈퇴하시겠습니까?</h2>
+  <form th:action="@{/user/delete}" method="post" style="margin-top: 30px;">
+    <button type="submit" class="full-btn" style="background-color: #d9534f;">탈퇴하기</button>
+  </form>
+  <div style="margin-top: 20px;">
+    <a th:href="@{/user/info}">돌아가기</a>
+  </div>
+</div>
+</body>
+</html>

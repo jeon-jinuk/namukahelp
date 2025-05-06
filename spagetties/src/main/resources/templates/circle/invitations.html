@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>받은 초대 목록</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+<div class="container">
+  <h2>내게 온 초대 목록</h2>
+
+  <table>
+    <thead>
+    <tr>
+      <th>써클 이름</th>
+      <th>설명</th>
+      <th>액션</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="invitation : ${invitations}">
+      <td th:text="${invitation.circleName}">써클 이름</td>
+      <td th:text="${invitation.description}">설명</td>
+      <td>
+        <form th:action="@{/api/circles/{circleId}/accept(circleId=${invitation.circleId})}" method="post" style="display:inline;">
+          <input type="hidden" name="memberId" th:value="${memberId}" />
+          <button type="submit" onclick="return confirm('수락하시겠습니까?')">수락</button>
+        </form>
+        <form th:action="@{/api/circles/{circleId}/reject(circleId=${invitation.circleId})}" method="post" style="display:inline;">
+          <input type="hidden" name="memberId" th:value="${memberId}" />
+          <button type="submit" onclick="return confirm('거절하시겠습니까?')">거절</button>
+        </form>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+</div>
+</body>
+</html>

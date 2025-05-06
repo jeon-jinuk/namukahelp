@@ -1,149 +1,184 @@
 package com.routine.domain.b_circle.controller;
 
-
-import com.routine.domain.a_member.model.Member;
-import com.routine.domain.b_circle.dto.*;
-import com.routine.domain.b_circle.service.CircleMemberService;
+import com.routine.domain.b_circle.dto.CircleCreateRequestDto;
+import com.routine.domain.b_circle.model.Circle;
+import com.routine.domain.b_circle.model.CircleMember;
 import com.routine.domain.b_circle.service.CircleService;
-import com.routine.domain.c_routine.dto.RoutineDTO;
-import com.routine.domain.c_routine.model.Routine;
-import com.routine.domain.c_routine.service.RoutineService;
 import com.routine.security.model.PrincipalDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.List;
+import com.routine.domain.a_member.model.Member;
+import com.routine.domain.b_circle.dto.MyCircleJoinStatusDto;
+
+
 
 
 @RestController
-@RequestMapping("/api/circles")
 @RequiredArgsConstructor
+@RequestMapping("/api/circles")
 public class CircleController {
 
     private final CircleService circleService;
-    private final CircleMemberService circleMemberService;
-    private final RoutineService routineService;
 
-    //  1. circle 기본 페이지
-    @GetMapping
-    public List<CircleSummaryDTO> viewCirclePage(@AuthenticationPrincipal PrincipalDetails principal) {
-        Long memberId = principal.getMember().getId();
-        return circleService.getMyCircles(memberId);
-    }
-
-    //  2. 서클 생성
     @PostMapping
-    public Long createCircle(@RequestBody CircleCreateRequest request,
-                             @AuthenticationPrincipal PrincipalDetails principal) {
-        Long memberId = principal.getMember().getId();
-        Long circleId = circleService.createCircle(request, memberId);
-        System.out.println("서클 이름 : " + request.getCircleName());
-        System.out.println("서클 설명: "+request.getCircleDescription());
-        System.out.println("서클 태그"+request.getTags());
-        Long routineId = request.getRoutineId();
-        routineService.saveAsCircleRoutine(memberId, routineId, circleId);
-        return circleId;
-    }
-
-    //  3. 서클 상세 조회
-    @GetMapping("/{circleId}")
-    public CircleResponse getCircleDetail(@PathVariable Long circleId,
-                                          @AuthenticationPrincipal PrincipalDetails principal) {
-        Long memberId = principal.getMember().getId();
-        return circleService.getCircleDetail(circleId, memberId);
-    }
-
-    // 4. 서클 루틴으로 만들 나의 루틴 불러오기
-    @GetMapping("/my-routines")
-    public List<RoutineSummaryDTO> getMyRoutinesForCircle(
-            @AuthenticationPrincipal PrincipalDetails principal,
-            @RequestParam String detailCategory
+    public ResponseEntity<String> createCircle(
+            @RequestBody CircleCreateRequestDto dto,
+            @AuthenticationPrincipal PrincipalDetails principalDetails
     ) {
-        Long memberId = principal.getMember().getId();
-        return circleService.getMyRoutinesForCircle(memberId, detailCategory);
+        Long memberId = principalDetails.getMember().getId();
+        circleService.createCircle(dto, memberId);
+        return ResponseEntity.ok("그룹이 성공적으로 생성되었습니다.");
     }
 
-    // 5. 4에서 선택한 나의 루틴 서클 루틴으로 변환
-    @PostMapping("/{circleId}/convert-routine")
-    public ResponseEntity<Void> convertRoutineToCircle(
+    @PostMapping("/{id}/join")
+    public ResponseEntity<String> joinCircle(
+            @PathVariable("id") Long circleId,
+            @AuthenticationPrincipal PrincipalDetails principalDetails
+    ) {
+        Long memberId = principalDetails.getMember().getId();
+        circleService.joinCircle(circleId, memberId);
+        return ResponseEntity.ok("써클 가입이 완료되었습니다.");
+    }
+    @PutMapping("/{circleId}")
+    public ResponseEntity<String> updateCircle(
             @PathVariable Long circleId,
-            @RequestBody RoutineConvertRequest request,
-            @AuthenticationPrincipal PrincipalDetails principal
+            @AuthenticationPrincipal PrincipalDetails principalDetails,
+            @ModelAttribute CircleCreateRequestDto dto
     ) {
-        Long memberId = principal.getMember().getId();
-        circleService.convertRoutineToCircle(request.getRoutineId(), circleId, memberId);
-        return ResponseEntity.ok().build();
+        circleService.updateCircle(circleId, principalDetails.getMember().getId(), dto);
+        return ResponseEntity.ok("써클이 수정되었습니다.");
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<RoutineSummaryDTO> createRoutine(@RequestBody RoutineDTO dto,
-                                              @AuthenticationPrincipal PrincipalDetails principal
+    @DeleteMapping("/{circleId}")
+    public ResponseEntity<String> deleteCircle(
+            @PathVariable Long circleId,
+            @AuthenticationPrincipal PrincipalDetails principalDetails
     ) {
-        Long memberId = principal.getMember().getId();
-        Routine newRoutine = routineService.saveRoutine(dto, memberId);
-        return ResponseEntity.ok(new RoutineSummaryDTO(
-                newRoutine.getId(),
-                newRoutine.getTitle(),
-                newRoutine.getCategory().name(),
-                newRoutine.getDetailCategory().name()
-        ));
+        circleService.deleteCircle(circleId, principalDetails.getMember().getId());
+        return ResponseEntity.ok("써클이 삭제되었습니다.");
     }
 
-    // 6. 서클 가입
-    @PostMapping("/{circleId}/join")
-    public ResponseEntity<Void> joinCircle(@PathVariable Long circleId,
-                                           @AuthenticationPrincipal PrincipalDetails principal) {
-        Member member = principal.getMember();
-        Long memberId = member.getId();
-        circleMemberService.register(circleId, member);
-        routineService.saveCircleRoutine(memberId, circleId);
-        return ResponseEntity.ok().build();
+    @GetMapping
+    public ResponseEntity<List<Circle>> getAllCircles() {
+        return ResponseEntity.ok(circleService.findAllCircles());
     }
 
-    // 7. 서클 검색
+
+
+    @GetMapping("/view/{id}")
+    public ResponseEntity<Circle> getCircle(@PathVariable("id") Long circleId) {
+        return ResponseEntity.ok(circleService.findCircleById(circleId));
+    }
+    @DeleteMapping("/{id}/leave")
+    public ResponseEntity<String> leaveCircle(
+            @PathVariable("id") Long circleId,
+            @AuthenticationPrincipal PrincipalDetails principalDetails
+    ) {
+        Long memberId = principalDetails.getMember().getId();     // 탈퇴 대상 (본인)
+        Long requesterId = principalDetails.getMember().getId();  // 요청자 = 본인
+
+        circleService.leaveCircle(circleId, memberId, requesterId);
+        return ResponseEntity.ok("써클에서 탈퇴했습니다.");
+    }
+
+    @GetMapping("/{circleId}/members")
+    public ResponseEntity<List<CircleMember>> getCircleMembers(
+            @PathVariable Long circleId,
+            @AuthenticationPrincipal PrincipalDetails principalDetails
+    ) {
+        Long memberId = principalDetails.getMember().getId();
+        return ResponseEntity.ok(circleService.getMembersInCircle(circleId, memberId));
+    }
+    @PostMapping("/{circleId}/approve/{memberId}")
+    public ResponseEntity<String> approveCircleMember(
+            @PathVariable Long circleId,
+            @PathVariable Long memberId,
+            @AuthenticationPrincipal PrincipalDetails principalDetails
+    ) {
+        Long approverId = principalDetails.getMember().getId();
+        circleService.approveCircleMember(circleId, memberId, approverId);
+        return ResponseEntity.ok("신청되었습니다.");
+    }
+
+    @PostMapping("/{circleId}/reject/{memberId}")
+    public ResponseEntity<String> rejectCircleMember(
+            @PathVariable Long circleId,
+            @PathVariable Long memberId,
+            @AuthenticationPrincipal PrincipalDetails principalDetails
+    ) {
+        Long adminId = principalDetails.getMember().getId();
+        circleService.rejectCircleMember(circleId, memberId, adminId);
+        return ResponseEntity.ok("가입이 거절되었습니다.");
+    }
+    @PutMapping("/{circleId}/transfer/{newLeaderId}")
+    public ResponseEntity<String> transferLeader(
+            @PathVariable Long circleId,
+            @PathVariable Long newLeaderId,
+            @AuthenticationPrincipal PrincipalDetails principalDetails
+    ) {
+        Long currentLeaderId = principalDetails.getMember().getId();
+        circleService.transferLeadership(circleId, currentLeaderId, newLeaderId);
+        return ResponseEntity.ok("써클장이 변경되었습니다.");
+    }
     @GetMapping("/search")
-    public List<CircleSummaryDTO> searchCircles(
-            @RequestParam(required = false) String category,
-            @RequestParam(required = false) String detailCategory,
-            @RequestParam(required = false) String keyword
+    public ResponseEntity<List<Map<String, Object>>> searchCircles(
+            @RequestParam(required = false) Boolean isPublic,
+            @RequestParam(required = false) String keyword,
+            @AuthenticationPrincipal PrincipalDetails principalDetails
     ) {
-        return circleService.searchCircles(category, detailCategory, keyword);
+        Long memberId = principalDetails.getMember().getId();
+        List<Circle> results = circleService.searchCircles(isPublic, keyword);
+
+        List<Map<String, Object>> response = results.stream().map(circle -> {
+            Map<String, Object> map = new HashMap<>();
+            map.put("id", circle.getId());
+            map.put("name", circle.getName());
+            map.put("description", circle.getDescription());
+            map.put("tags", String.join(", ", circle.getTags()));
+            map.put("public", circle.isPublic());
+
+            // 추가: 이미 가입했는지 여부
+            boolean alreadyJoined = circle.getMembers().stream()
+                    .anyMatch(cm -> cm.getMember().getId().equals(memberId));
+            map.put("alreadyJoined", alreadyJoined);
+
+            return map;
+        }).collect(Collectors.toList());
+
+        return ResponseEntity.ok(response);
+    }
+    @GetMapping("/api/circle-joins/my")
+    public ResponseEntity<List<MyCircleJoinStatusDto>> getMyJoinStatusList(
+            @AuthenticationPrincipal Member member,
+            @RequestParam(required = false) String status) {
+
+        List<MyCircleJoinStatusDto> list = circleService.getMyJoinStatusList(member.getId(), status);
+        return ResponseEntity.ok(list);
     }
 
 
-    // 8. 리더 위임
-    @PutMapping("/{circleId}/members/{memberId}/assign-leader")
-    public ResponseEntity<Void> assignLeader(
-            @PathVariable Long circleId,
-            @PathVariable Long memberId,
-            @AuthenticationPrincipal PrincipalDetails principal
-    ) {
-        circleMemberService.assignLeader(circleId, memberId, principal.getMember().getId());
-        return ResponseEntity.ok().build();
-    }
 
-    // 9. 추방
-    @DeleteMapping("/{circleId}/members/{memberId}/remove")
-    public ResponseEntity<Void> removeMember(
-            @PathVariable Long circleId,
-            @PathVariable Long memberId,
-            @AuthenticationPrincipal PrincipalDetails principal
-    ) {
-        circleMemberService.kickMember(circleId, memberId, principal.getMember().getId());
-        return ResponseEntity.noContent().build();
-    }
 
-    // 10. 탈퇴
-    @DeleteMapping("/{circleId}/members/{memberId}/leave")
-    public ResponseEntity<Void> leaveCircle(
-            @PathVariable Long circleId,
-            @PathVariable Long memberId,
-            @AuthenticationPrincipal PrincipalDetails principal
-    ) {
-        circleMemberService.leaveCircle(circleId, memberId, principal.getMember().getId());
-        return ResponseEntity.noContent().build();
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

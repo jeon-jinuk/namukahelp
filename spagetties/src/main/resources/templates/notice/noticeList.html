@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>공지사항 목록</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="container" style="max-width: 600px; margin: 0 auto; padding: 20px;">
+  <h2>공지사항</h2>
+
+  <div style="margin-bottom: 20px;">
+    <a th:href="@{/circle/{circleId}/notices/new(circleId=${circleId})}">
+      <button type="button" class="full-btn">공지사항 작성</button>
+    </a>
+  </div>
+
+  <div>
+    <ul style="list-style: none; padding: 0;">
+      <li th:each="notice : ${notices}" style="margin-bottom: 15px; border-bottom: 1px solid #ccc; padding-bottom: 10px;">
+        <a th:href="@{/circle/{circleId}/notices/{noticeId}(circleId=${circleId}, noticeId=${notice.id})}" style="font-weight: bold;">
+          <span th:text="${notice.title}">공지사항 제목</span>
+        </a>
+        <div style="font-size: 12px; color: gray;" th:text="${#temporals.format(notice.createdAt, 'yyyy-MM-dd HH:mm')}">
+          작성일시
+        </div>
+      </li>
+    </ul>
+
+    <div th:if="${#lists.isEmpty(notices)}" style="text-align: center; margin-top: 20px;">
+      등록된 공지사항이 없습니다.
+    </div>
+  </div>
+
+  <div style="margin-top: 20px;">
+    <a th:href="@{/circle/my}">
+      <button type="button" class="full-btn">내 써클로 돌아가기</button>
+    </a>
+  </div>
+</div>
+
+</body>
+</html>

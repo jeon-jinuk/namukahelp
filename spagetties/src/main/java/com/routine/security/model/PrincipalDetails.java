@@ -1,29 +1,31 @@
 package com.routine.security.model;
 
 import com.routine.domain.a_member.model.Member;
-import com.routine.domain.a_member.model.Role;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.io.Serializable;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
+@Getter
 @RequiredArgsConstructor
-public class PrincipalDetails implements UserDetails {
+public class PrincipalDetails implements UserDetails, Serializable {
 
     private final Member member;
 
-    public Member getMember() {
-        return member;
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
+        if (member.getRole() == null) {
+            return Collections.emptyList();
+        }
         return List.of(new SimpleGrantedAuthority("ROLE_" + member.getRole().name()));
     }
-    public Long getMemberId() { return member.getId(); }
+
     @Override
     public String getPassword() {
         return member.getPassword();
@@ -33,7 +35,6 @@ public class PrincipalDetails implements UserDetails {
     public String getUsername() {
         return member.getLoginId();
     }
-
 
     @Override
     public boolean isAccountNonExpired() {
@@ -53,5 +54,9 @@ public class PrincipalDetails implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public Member getMember() {
+        return this.member;
     }
 }

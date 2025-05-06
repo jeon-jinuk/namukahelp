@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>써클 상세 정보</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+<div class="container" style="max-width: 600px; margin: 0 auto; padding: 20px;">
+  <h2 th:text="${circle.name}">써클 이름</h2>
+
+  <div style="margin-top: 20px;">
+    <p><strong>설명:</strong> <span th:text="${circle.description}">설명</span></p>
+    <p><strong>태그:</strong> <span th:text="${circle.tags}">태그</span></p>
+    <p><strong>공개 여부:</strong>
+      <span th:text="${circle.isPublic} ? '공개' : '비공개'">공개 여부</span>
+    </p>
+  </div>
+
+  <div style="margin-top: 30px; text-align: center;">
+
+    <a th:href="@{/circle/my}">
+      <button type="button">목록으로 돌아가기</button>
+    </a>
+
+
+    <a th:href="@{/circle/manage/{id}(id=${circle.id})}" style="margin-left: 10px;">
+      <button type="button">써클 관리</button>
+    </a>
+
+
+    <a th:href="@{/circle/invitations}" style="margin-left: 10px;">
+      <button type="button">초대받은 목록</button>
+    </a>
+
+    <div style="margin-top: 10px;">
+      <a th:href="@{/circle/{id}/noticeList(id=${circle.id})}"
+         style="display: block; width: 100%; margin-top: 10px; text-decoration: none;">
+        <button type="button" class="full-btn">공지사항</button>
+      </a>
+    </div>
+
+
+
+
+
+  </div>
+</div>
+</body>
+</html>

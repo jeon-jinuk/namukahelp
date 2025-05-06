@@ -1,30 +1,54 @@
 package com.routine.domain.b_circle.service;
 
-import com.routine.domain.b_circle.dto.CircleCreateRequest;
-import com.routine.domain.b_circle.dto.CircleResponse;
-import com.routine.domain.b_circle.dto.CircleSummaryDTO;
-import com.routine.domain.b_circle.dto.RoutineSummaryDTO;
-import com.routine.domain.b_circle.dto.CircleRoutineCommits;
-
-import java.time.LocalDate;
+import com.routine.domain.b_circle.dto.CircleCreateRequestDto;
 import java.util.List;
+
+import com.routine.domain.b_circle.dto.MyCircleJoinStatusDto;
+import com.routine.domain.b_circle.model.Circle;
+import com.routine.domain.b_circle.model.CircleMember;
+import com.routine.dto.CircleDto;
 
 public interface CircleService {
 
-    List<CircleSummaryDTO> getMyCircles(Long memberId);
 
-    Long createCircle(CircleCreateRequest request, Long leaderId);
+    void createCircle(CircleCreateRequestDto dto, Long creatorId);
+    void joinCircle(Long circleId, Long memberId);
+    void updateCircle(Long circleId, Long memberId, CircleCreateRequestDto dto);
+    void deleteCircle(Long circleId, Long memberId);
+    void approveCircleMember(Long circleId, Long memberId, Long approverId);
+    void rejectCircleMember(Long circleId, Long memberId, Long approverId);
+    void transferLeadership(Long circleId, Long currentLeaderId, Long newLeaderId);
+    void leaveCircle(Long circleId, Long targetMemberId, Long requesterId);
+    void requestJoinCircle(Long circleId, Long memberId);
+    void requestJoinCircleByNickname(Long circleId, String memberNickname);
 
-    CircleResponse getCircleDetail(Long circleId, Long memberId);
 
 
 
-    List<RoutineSummaryDTO> getMyRoutinesForCircle(Long memberId, String detailCategory);
 
-    void convertRoutineToCircle(Long routineId, Long circleId, Long memberId);
 
-    // 서클 페이지 갔을 때 멤버들의 오늘 루틴 실행 내역 출력하기
-    CircleRoutineCommits getCommitsByCircleId(Long circleId, LocalDate commitDate);
 
-    List<CircleSummaryDTO> searchCircles(String category, String detailCategory, String keyword);
+    List<Circle> findAllCircles();
+
+    List<Circle> findCirclesByMemberId(Long memberId);
+
+    Circle findCircleById(Long circleId);
+
+    List<CircleMember> getMembersInCircle(Long circleId, Long requesterId);
+
+    List<Circle> searchCircles(Boolean isPublic, String keyword);
+
+    CircleDto getCircleDtoById(Long circleId);
+
+    boolean canEditCircle(Long circleId, Long memberId);
+
+    List<MyCircleJoinStatusDto> getMyJoinStatusList(Long memberId, String statusFilter);
+
+
+
+
+
+
+
+
 }

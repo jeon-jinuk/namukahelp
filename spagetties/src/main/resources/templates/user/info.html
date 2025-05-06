@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>회원정보</title>
+    <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+<div class="container" style="max-width: 500px; margin: 0 auto; padding: 30px;">
+    <h2 style="text-align: center;">회원정보</h2>
+
+    <table style="width: 100%; margin-top: 30px; border-collapse: collapse;">
+        <tr>
+            <th style="text-align: left; padding: 8px;">아이디</th>
+            <td th:text="${member.username}" style="padding: 8px;"></td>
+        </tr>
+        <tr>
+            <th style="text-align: left; padding: 8px;">이름</th>
+            <td th:text="${member.name}" style="padding: 8px;"></td>
+        </tr>
+        <tr>
+            <th style="text-align: left; padding: 8px;">닉네임</th>
+            <td th:text="${member.nickname}" style="padding: 8px;"></td>
+        </tr>
+        <tr>
+            <th style="text-align: left; padding: 8px;">이메일</th>
+            <td th:text="${member.email}" style="padding: 8px;"></td>
+        </tr>
+        <tr>
+            <th style="text-align: left; padding: 8px;">전화번호</th>
+            <td th:text="${member.phone}" style="padding: 8px;"></td>
+        </tr>
+    </table>
+
+    <div style="margin-top: 30px; text-align: center;">
+        <button onclick="location.href='/user/edit'" class="full-btn">정보 수정</button>
+        <button onclick="location.href='/user/delete'" class="full-btn" style="background-color: #ccc; margin-top: 10px;">회원 탈퇴</button>
+    </div>
+</div>
+</body>
+</html>
