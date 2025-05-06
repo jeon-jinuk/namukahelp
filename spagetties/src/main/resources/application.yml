@@ -16,7 +16,12 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: update  # (none, create, create-drop, update, validate)
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
 
   thymeleaf:
     prefix: classpath:/templates/
@@ -24,7 +29,6 @@ spring:
     mode: HTML
     encoding: UTF-8
     cache: false
-
   servlet:
     multipart:
       enabled: true            # 파일 업로드 사용 여부
@@ -35,3 +39,7 @@ spring:
 file:
   upload:
     path: C:/PyoSeChang/upload
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org.hibernate.type.descriptor.sql: trace

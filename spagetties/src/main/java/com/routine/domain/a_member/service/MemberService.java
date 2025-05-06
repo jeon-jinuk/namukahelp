@@ -1,6 +1,6 @@
 package com.routine.domain.a_member.service;
 
-import com.routine.domain.a_member.dto.MemberDto;
+import com.routine.domain.a_member.dto.MemberDTO;
 import com.routine.domain.a_member.dto.SignupRequestDto;
 import com.routine.domain.a_member.model.Member;
 
@@ -11,6 +11,6 @@ public interface MemberService {
     void updateMember(Long memberId, SignupRequestDto dto);
     void deleteMember(Long memberId);
     List<Member> findAllMembers();
-    MemberDto findByLoginId(String loginId);
+    MemberDTO findByLoginId(String loginId);
 
 }

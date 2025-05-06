@@ -1,6 +1,6 @@
 package com.routine.web;
 
-import com.routine.domain.a_member.dto.MemberDto;
+import com.routine.domain.a_member.dto.MemberDTO;
 import com.routine.domain.a_member.dto.SignupRequestDto;
 import com.routine.domain.a_member.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +19,7 @@ public class PageController {
     // 회원정보 보기 페이지
     @GetMapping("/user/info")
     public String userInfo(Model model, @AuthenticationPrincipal UserDetails userDetails) {
-        MemberDto member = memberService.findByLoginId(userDetails.getUsername());
+        MemberDTO member = memberService.findByLoginId(userDetails.getUsername());
         model.addAttribute("member", member);
         return "user/info"; // templates/user/info.html
     }
@@ -27,7 +27,7 @@ public class PageController {
     // 회원정보 수정 폼 페이지
     @GetMapping("/user/edit")
     public String editForm(Model model, @AuthenticationPrincipal UserDetails userDetails) {
-        MemberDto member = memberService.findByLoginId(userDetails.getUsername());
+        MemberDTO member = memberService.findByLoginId(userDetails.getUsername());
         model.addAttribute("member", member);
         return "user/edit"; // templates/user/edit.html
     }

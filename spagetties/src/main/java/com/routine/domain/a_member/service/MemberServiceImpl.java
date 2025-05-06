@@ -3,17 +3,13 @@ package com.routine.domain.a_member.service;
 import com.routine.domain.a_member.dto.SignupRequestDto;
 import com.routine.domain.a_member.model.Member;
 import com.routine.domain.a_member.model.Role;
-import com.routine.domain.a_member.model.UserInfo;
 import com.routine.domain.a_member.repository.MemberRepository;
 import com.routine.domain.a_member.repository.UserInfoRepository;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.Hibernate;
-import org.hibernate.ObjectNotFoundException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import com.routine.domain.a_member.dto.MemberDto;
+import com.routine.domain.a_member.dto.MemberDTO;
 import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -81,12 +77,12 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public MemberDto findByLoginId(String loginId) {
+    public MemberDTO findByLoginId(String loginId) {
         Member member = memberRepository.findByLoginId(loginId);
         if (member == null) {
             throw new UsernameNotFoundException("사용자를 찾을 수 없습니다.");
         }
-        return MemberDto.from(member);
+        return MemberDTO.from(member);
     }
 
 
